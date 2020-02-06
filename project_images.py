@@ -1,8 +1,11 @@
 import argparse
 import os
 import shutil
+import time
+
 import numpy as np
 
+import config
 import dnnlib
 import dnnlib.tflib as tflib
 import pretrained_networks
@@ -81,8 +84,10 @@ def main():
     parser.add_argument('src_dir', help='Directory with aligned images for projection')
     parser.add_argument('dst_dir', help='Output directory')
     parser.add_argument('--tmp-dir', default='.stylegan2-tmp', help='Temporary directory for tfrecords and video frames')
-    parser.add_argument('--network-pkl', default='gdrive:networks/stylegan2-ffhq-config-f.pkl', help='StyleGAN2 network pickle filename')
-    parser.add_argument('--vgg16-pkl', default='https://drive.google.com/uc?id=1N2-m9qszOeVC9Tq77WxsLnuWwOedQiD2', help='VGG16 network pickle filename')
+    # parser.add_argument('--network-pkl', default='gdrive:networks/stylegan2-ffhq-config-f.pkl', help='StyleGAN2 network pickle filename')
+    parser.add_argument('--network-pkl', default=config.Model, help='StyleGAN2 network pickle filename')
+    # parser.add_argument('--vgg16-pkl', default='https://drive.google.com/uc?id=1N2-m9qszOeVC9Tq77WxsLnuWwOedQiD2', help='VGG16 network pickle filename')
+    parser.add_argument('--vgg16-pkl', default=config.vgg16, help='VGG16 network pickle filename')
     parser.add_argument('--num-steps', type=int, default=1000, help='Number of optimization steps')
     parser.add_argument('--initial-learning-rate', type=float, default=0.1, help='Initial learning rate')
     parser.add_argument('--initial-noise-factor', type=float, default=0.05, help='Initial noise factor')
@@ -95,6 +100,7 @@ def main():
     parser.add_argument('--video-bitrate', default='5M', help='Video bitrate')
     args = parser.parse_args()
 
+    tflib.init_tf({'gpu_options.allow_growth': config.allow_growth})
     print('Loading networks from "%s"...' % args.network_pkl)
     _G, _D, Gs = pretrained_networks.load_networks(args.network_pkl)
     proj = projector.Projector(
@@ -107,8 +113,10 @@ def main():
     proj.set_network(Gs)
 
     src_files = sorted([os.path.join(args.src_dir, f) for f in os.listdir(args.src_dir) if f[0] not in '._'])
+    src_files = list(filter(os.path.isfile, src_files))
     for src_file in src_files:
         project_image(proj, src_file, args.dst_dir, args.tmp_dir, video=args.video)
+        time.sleep(10)
         if args.video:
             render_video(
                 src_file, args.dst_dir, args.tmp_dir, args.num_steps, args.video_mode,

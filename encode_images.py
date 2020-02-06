@@ -4,6 +4,8 @@ import pickle
 from tqdm import tqdm
 import PIL.Image
 import numpy as np
+
+import config
 import dnnlib
 import dnnlib.tflib as tflib
 import pretrained_networks
@@ -22,7 +24,8 @@ def main():
     parser.add_argument('generated_images_dir', help='Directory for storing generated images')
     parser.add_argument('dlatent_dir', help='Directory for storing dlatent representations')
 
-    parser.add_argument('--network_pkl', default='gdrive:networks/stylegan2-ffhq-config-f.pkl', help='Path to local copy of stylegan2-ffhq-config-f.pkl')
+    # parser.add_argument('--network_pkl', default='gdrive:networks/stylegan2-ffhq-config-f.pkl', help='Path to local copy of stylegan2-ffhq-config-f.pkl')
+    parser.add_argument('--network_pkl', default=config.Model, help='Path to local copy of stylegan2-ffhq-config-f.pkl')
 
     # for now it's unclear if larger batch leads to better performance/quality
     parser.add_argument('--batch_size', default=1, help='Batch size for generator and perceptual model', type=int)

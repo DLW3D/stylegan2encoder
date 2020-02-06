@@ -17,6 +17,8 @@ import traceback
 import numpy as np
 import tensorflow as tf
 import PIL.Image
+
+import config
 import dnnlib.tflib as tflib
 
 from training import dataset
@@ -191,7 +193,7 @@ class ThreadPool(object):
 
 def display(tfrecord_dir):
     print('Loading dataset "%s"' % tfrecord_dir)
-    tflib.init_tf({'gpu_options.allow_growth': True})
+    tflib.init_tf({'gpu_options.allow_growth': config.allow_growth})
     dset = dataset.TFRecordDataset(tfrecord_dir, max_label_size='full', repeat=False, shuffle_mb=0)
     tflib.init_uninitialized_vars()
     import cv2  # pip install opencv-python
@@ -217,7 +219,7 @@ def display(tfrecord_dir):
 
 def extract(tfrecord_dir, output_dir):
     print('Loading dataset "%s"' % tfrecord_dir)
-    tflib.init_tf({'gpu_options.allow_growth': True})
+    tflib.init_tf({'gpu_options.allow_growth': config.allow_growth})
     dset = dataset.TFRecordDataset(tfrecord_dir, max_label_size=0, repeat=False, shuffle_mb=0)
     tflib.init_uninitialized_vars()
 
@@ -245,7 +247,7 @@ def extract(tfrecord_dir, output_dir):
 def compare(tfrecord_dir_a, tfrecord_dir_b, ignore_labels):
     max_label_size = 0 if ignore_labels else 'full'
     print('Loading dataset "%s"' % tfrecord_dir_a)
-    tflib.init_tf({'gpu_options.allow_growth': True})
+    tflib.init_tf({'gpu_options.allow_growth': config.allow_growth})
     dset_a = dataset.TFRecordDataset(tfrecord_dir_a, max_label_size=max_label_size, repeat=False, shuffle_mb=0)
     print('Loading dataset "%s"' % tfrecord_dir_b)
     dset_b = dataset.TFRecordDataset(tfrecord_dir_b, max_label_size=max_label_size, repeat=False, shuffle_mb=0)
@@ -502,6 +504,7 @@ def create_celeba(tfrecord_dir, celeba_dir, cx=89, cy=121):
 def create_from_images(tfrecord_dir, image_dir, shuffle):
     print('Loading images from "%s"' % image_dir)
     image_filenames = sorted(glob.glob(os.path.join(image_dir, '*')))
+    image_filenames = list(filter(os.path.isfile, image_filenames))
     if len(image_filenames) == 0:
         error('No input images found')
 

@@ -7,6 +7,8 @@
 """List of pre-trained StyleGAN2 networks located on Google Drive."""
 
 import pickle
+
+import config
 import dnnlib
 import dnnlib.tflib as tflib
 
@@ -14,6 +16,9 @@ import dnnlib.tflib as tflib
 # StyleGAN2 Google Drive root: https://drive.google.com/open?id=1QHc-yF5C3DChRwSdZKcx1w6K8JvSxQi7
 
 gdrive_urls = {
+    'config':                                                               config.Model,
+    'anime':                                                                './models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl',
+    'hhfq':                                                                 './models/stylegan2-ffhq-config-f.pkl',
     'gdrive:networks/stylegan2-car-config-a.pkl':                           'http://d36zk2xti64re0.cloudfront.net/stylegan2/networks/stylegan2-car-config-a.pkl',
     'gdrive:networks/stylegan2-car-config-b.pkl':                           'http://d36zk2xti64re0.cloudfront.net/stylegan2/networks/stylegan2-car-config-b.pkl',
     'gdrive:networks/stylegan2-car-config-c.pkl':                           'http://d36zk2xti64re0.cloudfront.net/stylegan2/networks/stylegan2-car-config-c.pkl',
