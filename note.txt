@@ -1,6 +1,6 @@
 # styleGan 2
 # 生成
-python run_generator.py generate-images --network=config --seeds=6600-6625 --truncation-psi=0.5
+python run_generator.py generate-images --network=config --seeds=0-100 --truncation-psi=0.5
 # 裁剪
 python align_images.py raw_images/ images/
 # 转化为 .tfrecords
@@ -12,3 +12,12 @@ python run_projector.py project-real-images --network=config --dataset=mypicture
 python encode_images.py images/ generated_images/ latent_representations/ --lr 1.3 --iterations 1000 --randomize_noise False
 # align_images 重生成
 python project_images.py images/ generated_images/ --num-steps 1000 --video True
+# crop
+python crop.py lbpcascade_animeface.xml foo.jpg cropped
+python crop.py lbpcascade_animeface.xml ./origin ./faces
+# rank
+python ranker.py C:\Users\78753\Desktop\stylegan2encoder\cropy\faces
+# dataset
+python dataset_tool.py create_from_images ./datasets/mypictures ./cropy/faces2x
+
+python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true
