@@ -26,5 +26,6 @@ allow_growth = True
 Model = './models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl'
 # Model = './models/stylegan2-ffhq-config-f.pkl'
 vgg16 = './models/vgg16_zhang_perceptual.pkl'
+inception_v3_features = './models/inception_v3_features.pkl'
 
 #----------------------------------------------------------------------------
