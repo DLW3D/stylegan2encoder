@@ -21,7 +21,7 @@ python ranker.py C:\Users\78753\Desktop\stylegan2encoder\cropy\faces
 python dataset_tool.py create_from_images ./datasets/mypictures ./cropy/faces2x
 
 python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true
-python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true --resume-pkl=./models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl --total-kimg=1
+python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true --resume-pkl=./models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl --total-kimg=10000
 
 
 
