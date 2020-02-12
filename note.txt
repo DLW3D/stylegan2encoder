@@ -6,9 +6,9 @@ python align_images.py raw_images/ images/
 # 转化为 .tfrecords
 python dataset_tool.py create_from_images ./datasets/mypictures ./images
 python dataset_tool.py display ./datasets/mypictures
-# projector重生成
+# projector 重生成
 python run_projector.py project-real-images --network=config --dataset=mypictures --data-dir=./datasets
-# encoder重生成
+# encoder 重生成
 python encode_images.py images/ generated_images/ latent_representations/ --lr 1.3 --iterations 1000 --randomize_noise False
 # align_images 重生成
 python project_images.py images/ generated_images/ --num-steps 1000 --video True
@@ -19,9 +19,12 @@ python crop.py lbpcascade_animeface.xml ./origin ./faces
 python ranker.py C:\Users\78753\Desktop\stylegan2encoder\cropy\faces
 # dataset
 python dataset_tool.py create_from_images ./datasets/mypictures ./cropy/faces2x
+# video
+python video.py
 
-python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true
-python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true --resume-pkl=./models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl --total-kimg=10000
+# run
+python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true --total-kimg=10000 --resume-pkl=./models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl
+python run_training.py --num-gpus=1 --data-dir=./datasets/ --config=config-f --dataset=mypictures --mirror-augment=true --total-kimg=10000 --resume-pkl=latest
 
 
 
