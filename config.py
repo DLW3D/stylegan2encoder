@@ -19,12 +19,14 @@ run_dir_ignore = ['results', 'datasets', 'cache', 'latent_representations', 'gen
 
 # experimental - replace Dense layers with TreeConnect
 use_treeconnect = False
-treeconnect_threshold = 1024
 randomize_noise = False
 allow_growth = True
 
-Model = './models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl'
-# Model = './models/stylegan2-ffhq-config-f.pkl'
+# Model = './models/lex5-246.pkl'
+# Model = './models/lex5-123.pkl'
+# Model = './models/lex4-148.pkl'
+# Model = './models/2020-01-11-skylion-stylegan2-animeportraits-networksnapshot-024664.pkl'
+Model = './models/stylegan2-ffhq-config-f.pkl'
 vgg16 = './models/vgg16_zhang_perceptual.pkl'
 inception_v3_features = './models/inception_v3_features.pkl'
 
