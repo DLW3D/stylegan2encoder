@@ -40,5 +40,5 @@ def pngproc(filename):
     im = im.convert("RGB")
     data = np.array(im)
     new_im = Image.fromarray(data.astype(np.uint8))
-    new_im = new_im.resize((1024,1024),PIL.Image.LANCZOS)
-    new_im.save(filename)ilename)
+    new_im = new_im.resize((512,512),Image.LANCZOS)
+    new_im.save(filename)

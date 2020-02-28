@@ -20,6 +20,7 @@ from training import misc
 
 def project_image(proj, targets, png_prefix, num_snapshots):
     snapshot_steps = set(proj.num_steps - np.linspace(0, proj.num_steps, num_snapshots, endpoint=False, dtype=int))
+    snapshot_steps = [0,1,5,10,20,50,100,200,400,600,800,1000]
     misc.save_image_grid(targets, png_prefix + 'target.png', drange=[-1,1])
     proj.start(targets)
     while proj.get_cur_step() < proj.num_steps:
@@ -117,7 +118,7 @@ Run 'python %(prog)s <subcommand> --help' for subcommand help.''',
     project_real_images_parser.add_argument('--data-dir', help='Dataset root directory', required=True)
     project_real_images_parser.add_argument('--dataset', help='Training dataset', dest='dataset_name', required=True)
     project_real_images_parser.add_argument('--num-snapshots', type=int, help='Number of snapshots (default: %(default)s)', default=5)
-    project_real_images_parser.add_argument('--num-images', type=int, help='Number of images to project (default: %(default)s)', default=3)
+    project_real_images_parser.add_argument('--num-images', type=int, help='Number of images to project (default: %(default)s)', default=300)
     project_real_images_parser.add_argument('--result-dir', help='Root directory for run results (default: %(default)s)', default='results', metavar='DIR')
 
     args = parser.parse_args()
